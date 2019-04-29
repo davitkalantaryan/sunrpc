@@ -35,8 +35,8 @@
  */
 
 #include <rpc/rpc.h>
-#include <libc-lock.h>
-#include <shlib-compat.h>
+//#include <libc-lock.h>
+//#include <shlib-compat.h>
 
 #define MAX_MARSHAL_SIZE 20
 

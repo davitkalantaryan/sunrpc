@@ -43,10 +43,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <libintl.h>
+//#include <libintl.h>
 #include <sys/param.h>
 #include <wchar.h>
-#include <shlib-compat.h>
+//#include <shlib-compat.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -297,7 +297,7 @@ authunix_refresh (AUTH *auth)
     goto done;
 
   /* update the time and serialize in place */
-  (void) __gettimeofday (&now, (struct timezone *) 0);
+  (void) gettimeofday (&now, (struct timezone *) 0);
   aup.aup_time = now.tv_sec;
   xdrs.x_op = XDR_ENCODE;
   XDR_SETPOS (&xdrs, 0);
