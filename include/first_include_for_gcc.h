@@ -83,8 +83,27 @@ typedef int64_t u_quad_t;
 # define IPPORT_RESERVED     1024
 #endif
 
+#ifndef __set_errno
+#define __set_errno(_errnoM) do{errno = (_errnoM);}while(0)
+#endif
+
+#ifndef libc_sunrpc_symbol
+#define libc_sunrpc_symbol(...)
+#endif
+
+#ifndef text_set_element
+#define text_set_element(...)
+#endif
+
+#ifndef libnss_files_hidden_proto
+#define libnss_files_hidden_proto(...)
+#endif
+
+
 #define __libc_lock_lock(...)
 #define __libc_lock_unlock(...)
+
+#define svc_xports_s  SVCXPRT*
 
 
 #define __gettimeofday gettimeofday
@@ -99,6 +118,24 @@ typedef int64_t u_quad_t;
 #define __alloca  alloca
 #define __strerror_r  strerror_r
 #define __close  close
+#define __socket    socket
+#define __connect  connect
+#define __glibc_unlikely(_cond)   (_cond)
+#define __poll  poll
+#define __read  read
+#define __write  write
+#define __setsockopt    setsockopt
+#define __recvmsg    recvmsg
+#define __sendmsg   sendmsg
+#define __sendto   sendto
+#define __recvfrom  recvfrom
+#define __gethostbyname2_r  gethostbyname2_r
+#define __getdtablesize()   (2048)
+#define __strdup    strdup
+
+#ifdef TESTS
+#define REPORT_BUGS_TO  "davit.kalantaryan@desy.de"
+#endif
 
 #ifdef __cplusplus
 extern "C"{

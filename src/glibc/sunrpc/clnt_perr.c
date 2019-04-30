@@ -385,8 +385,10 @@ auth_errmsg (enum auth_stat stat)
 }
 
 
+#if 0
 libc_freeres_fn (free_mem)
 {
   /* Not libc_freeres_ptr, since buf is a macro.  */
   free (buf);
 }
+#endif

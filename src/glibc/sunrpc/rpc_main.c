@@ -175,7 +175,7 @@ main (int argc, const char *argv[])
   struct commandline cmd;
 
   setlocale (LC_ALL, "");
-  textdomain (_libc_intl_domainname);
+  //textdomain (_libc_intl_domainname);
 
   (void) memset ((char *) &cmd, 0, sizeof (struct commandline));
   clear_args ();
