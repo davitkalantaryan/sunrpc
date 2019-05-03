@@ -1,2 +1,4 @@
 prj/*/build*
 sys
+prj/*/*_qt/*.pro.user
+prj/*/*_qt/*.pro.user.*
