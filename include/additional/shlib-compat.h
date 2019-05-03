@@ -11,6 +11,10 @@
 
 //#define libc_freeres_fn (...) void __libc_freeres_fn(void* buf)
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void** __rpc_thread_specific_variable(const char* a_name);
 
 #ifndef RPC_THREAD_VARIABLE
@@ -26,6 +30,12 @@ void** __rpc_thread_specific_variable(const char* a_name);
 #if !defined(__cplusplus) && !defined(bool) && !defined(bool_defined)
 #define bool_defined
 typedef char bool;
+#endif
+
+int ffsl(long int i);
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif  // #ifndef SUNRPC_ADDITIONAL_SHLIB_COMPAT_H

@@ -248,3 +248,20 @@ int __deadline_to_ms (struct deadline_current_time current,
     return INT_MAX;
   return msec;
 }
+
+
+int ffsl(long int a_arg)
+{
+    long int lnMask = 1;
+    long int i=1;
+    //const long int clnScanRegion = sizeof(long int)-1;
+    //const long int clnScanRegion = sizeof(long int);
+
+    for(;lnMask;++i,lnMask <<= 1){
+        if(lnMask&a_arg){
+            return i;
+        }
+    }
+
+    return 0;
+}

@@ -99,11 +99,19 @@ typedef int64_t u_quad_t;
 #define libnss_files_hidden_proto(...)
 #endif
 
+#ifndef __libc_tsd_define
+#define __libc_tsd_define(...)
+#endif
+
+#ifndef attribute_tls_model_ie
+#define attribute_tls_model_ie
+#endif
+
 
 #define __libc_lock_lock(...)
 #define __libc_lock_unlock(...)
 
-#define svc_xports_s  SVCXPRT*
+//#define svc_xports_s  SVCXPRT*
 
 
 #define __gettimeofday gettimeofday
@@ -132,6 +140,8 @@ typedef int64_t u_quad_t;
 #define __gethostbyname2_r  gethostbyname2_r
 #define __getdtablesize()   (2048)
 #define __strdup    strdup
+#define __nanosleep  nanosleep
+#define __getsockname   getsockname
 
 #ifdef TESTS
 #define REPORT_BUGS_TO  "davit.kalantaryan@desy.de"
