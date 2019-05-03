@@ -1,9 +1,117 @@
 
+
 #include <netdb.h>
 #include <stddef.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
+
+int ffsl(long int a_arg)
+{
+    long int nMask = 1;
+    long int i=1;
+    //const long int clnScanRegion = sizeof(long int)-1;
+    //const long int clnScanRegion = sizeof(long int);
+
+    for(;nMask;++i,nMask <<= 1){
+        if(nMask&a_arg){
+            return i;
+        }
+    }
+
+    return 0;
+}
+
+int ffs2(int a_arg)
+{
+    int nMask = 1;
+    int i=1;
+
+    for(;nMask;++i,nMask <<= 1){
+        if(nMask&a_arg){
+            return i;
+        }
+    }
+
+    return 0;
+}
+
+#if 1
+
+extern int sys_nerr;
+int sys_nerr = 1024;
+
+int getdtablesize(void)
+{
+    return 1024;
+}
+
+int getprotobyname_r(const char *a_name,struct protoent *a_result_buf, char *a_buf,size_t a_buflen, struct protoent **a_pResult)
+{
+    static pthread_mutex_t sMutex = PTHREAD_MUTEX_INITIALIZER;
+
+    int nReturn = -1;
+    int i;
+    size_t count;
+    char* pcBufferNext = a_buf;
+    char** pAlias;
+    size_t unRemainingFromBuffer = a_buflen-1;
+    size_t unStrLenPlus1, unSizeForCopy;
+    struct protoent *result;
+
+    *a_pResult = NULL;
+
+    pthread_mutex_lock(&sMutex);
+    result = getprotobyname(a_name);
+    if(!result){
+        goto returnPoint;
+    }
+    *a_pResult = a_result_buf;
+    nReturn = 0;
+    memcpy(a_result_buf,result,sizeof(struct protoent));
+
+    for (count=0,pAlias = result->p_aliases; *pAlias; ++pAlias,++count);
+    unStrLenPlus1 = count*sizeof(char*);
+    if(a_buflen<unStrLenPlus1){
+        a_result_buf->p_name = NULL;
+        a_result_buf->p_aliases = NULL;
+        goto returnPoint;
+    }
+    a_buf[unRemainingFromBuffer]=0;
+
+    unSizeForCopy = unStrLenPlus1;  // here we are shure that we have enough space because of if(a_buflen<unStrLenPlus1){
+    a_result_buf->p_aliases = (char**)((void*)pcBufferNext);
+    pcBufferNext += unSizeForCopy;
+    unRemainingFromBuffer -= unSizeForCopy;
+
+    unStrLenPlus1 = strlen(result->p_name) + 1;
+    unSizeForCopy = (unStrLenPlus1>unRemainingFromBuffer) ? unRemainingFromBuffer : unStrLenPlus1;
+    memcpy(pcBufferNext,result->p_name,unSizeForCopy);
+    a_result_buf->p_name = pcBufferNext;
+    pcBufferNext += unSizeForCopy;
+    unRemainingFromBuffer -= unSizeForCopy;
+
+    for (i=0,pAlias = result->p_aliases; (*pAlias)&&unSizeForCopy; ++pAlias,++i){
+        unStrLenPlus1 = strlen(*pAlias) + 1;
+        unSizeForCopy = (unStrLenPlus1>unRemainingFromBuffer) ? unRemainingFromBuffer : unStrLenPlus1;
+        memcpy(pcBufferNext,*pAlias,unSizeForCopy);
+        a_result_buf->p_aliases[i] = pcBufferNext;
+        pcBufferNext += unSizeForCopy;
+        unRemainingFromBuffer -= unSizeForCopy;
+    }
+
+    *a_pResult = a_result_buf;
+    nReturn = 0;
+returnPoint:
+    pthread_mutex_unlock(&sMutex);
+    return nReturn;
+}
+
+
+
+#else   // #if 1
+
+
 #include <inet/net-internal.h>
 #include <assert.h>
 
@@ -249,19 +357,4 @@ int __deadline_to_ms (struct deadline_current_time current,
   return msec;
 }
 
-
-int ffsl(long int a_arg)
-{
-    long int lnMask = 1;
-    long int i=1;
-    //const long int clnScanRegion = sizeof(long int)-1;
-    //const long int clnScanRegion = sizeof(long int);
-
-    for(;lnMask;++i,lnMask <<= 1){
-        if(lnMask&a_arg){
-            return i;
-        }
-    }
-
-    return 0;
-}
+#endif   // #if 1

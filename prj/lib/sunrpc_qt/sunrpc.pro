@@ -10,7 +10,7 @@ DEFINES += __FLOAT_WORD_ORDER=_LITTLE_ENDIAN
 message("!!! sunrpc.pro:")
 
 TEMPLATE = lib
-include(../../common/common_qt/sys_common.pri)
+#include(../../common/common_qt/sys_common.pri)
 
 QT -= core
 QT -= gui
@@ -38,173 +38,51 @@ QMAKE_CFLAGS_WARN_ON += -Wno-incompatible-pointer-types
 QMAKE_CXXFLAGS += -std=c++14
 CONFIG += c++14
 
-DEFINES += MULTITHREADED
-DEFINES += LINUX
-DEFINES += API_VERSION_TO_USE=26
-
-INCLUDEPATH += $${PWD}/../../../include
-INCLUDEPATH += $${PWD}/../../../include/additional
-INCLUDEPATH += $$(PWD)/../../../include/glibc
-INCLUDEPATH += $$(PWD)/../../../src/glibc
+INCLUDEPATH += ../../../include/wlac
 
 android {
     DEFINES += __GNU_LIBRARY__
-    INCLUDEPATH += $${PWD}/../../../include/android
-    INCLUDEPATH += $${PWD}/../../../include/android/openldap_include
 }
 
 HEADERS += \
-    $$(PWD)/../../../include/first_include_for_gcc.h \
-    $$(PWD)/../../../include/additional/libintl.h  \
-    $$(PWD)/../../../include/additional/shlib-compat.h   \
-    $$(PWD)/../../../include/additional/libc-lock.h  \
-    $$(PWD)/../../../include/additional/libio/iolibio.h \
-    $$(PWD)/../../../include/additional/errqueue.h \
-    $$(PWD)/../../../include/additional/kernel-features.h \
-    $$(PWD)/../../../include/additional/inet/net-internal.h \
-    $$(PWD)/../../../include/version.h \
-    $$(PWD)/../../../include/additional/.private/private_declarations.h \
+    ../../../include/wlac/first_include_for_gcc.h
+
 
 # LIBS += -lMCclass
 SOURCES += \
-    $$(PWD)/../../../src/lib/additional_functions_for_library.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/auth_none.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/auth_unix.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/authuxprot.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/bindrsvprt.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_gen.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_perr.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_raw.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_simp.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_tcp.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_udp.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_unix.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/get_myaddr.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcport.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_clnt.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_prot2.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_prot.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_rmt.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_clntout.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_cmsg.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_common.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_cout.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_dtable.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpcgen.c                 \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_hout.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_parse.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_prot.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_sample.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_scan.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_svcout.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_tblout.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_thread.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_util.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_auth.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_authux.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/svc.c                    \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_raw.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_run.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_simple.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_tcp.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_udp.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_unix.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/xcrypt.c                 \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_array.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr.c                    \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_float.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_intXX_t.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_mem.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_rec.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_ref.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_sizeof.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_stdio.c
-
-
-
-OTHER_FILES += \
-    $$(PWD)/../../../src/lib/additional_functions_for_library.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/auth_des.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/authdes_prot.c           \
-    $$(PWD)/../../../src/glibc/sunrpc/auth_none.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/auth_unix.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/authuxprot.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/bindrsvprt.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_gen.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_perr.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_raw.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_simp.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_tcp.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_udp.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/clnt_unix.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/create_xid.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/des_crypt.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/des_impl.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/des_soft.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/get_myaddr.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcbyname.c           \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcbyname_r.c         \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcbynumber.c         \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcbynumber_r.c       \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcent.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcent_r.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/getrpcport.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/key_call.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/key_prot.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/netname.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/openchild.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_clnt.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_prot2.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_prot.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/pmap_rmt.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/pm_getmaps.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/pm_getport.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/publickey.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_clntout.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_cmsg.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_common.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_cout.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_dtable.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpcgen.c                 \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_gethostbyname.c      \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_hout.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_main.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_parse.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_prot.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_sample.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_scan.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_svcout.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_tblout.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_thread.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/rpc_util.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/rtime.c                  \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_auth.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/svcauth_des.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_authux.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/svc.c                    \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_raw.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_run.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_simple.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_tcp.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_udp.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/svc_unix.c               \
-    $$(PWD)/../../../src/glibc/sunrpc/test-rpcent.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/thrsvc.c                 \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-getmyaddr.c          \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-svc_register.c       \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-udp-error.c          \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-udp-garbage.c        \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-udp-nonblocking.c    \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-udp-timeout.c        \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-xdrmem2.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/tst-xdrmem.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/xcrypt.c                 \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_array.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr.c                    \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_float.c              \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_intXX_t.c            \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_mem.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_rec.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_ref.c                \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_sizeof.c             \
-    $$(PWD)/../../../src/glibc/sunrpc/xdr_stdio.c
+    ../../../src/lib/additional_functions_for_library.c        \
+    ../../../src/wlac/xdr_rpc/auth_none.c                      \
+    ../../../src/wlac/xdr_rpc/auth_unix_used_on_static.c       \
+    ../../../src/wlac/xdr_rpc/authuxprot.c                     \
+    ../../../src/wlac/xdr_rpc/clnt_gen.c                       \
+    ../../../src/wlac/xdr_rpc/clnt_perr.c                      \
+    ../../../src/wlac/xdr_rpc/clnt_raw.c                       \
+    ../../../src/wlac/xdr_rpc/clnt_simp.c                      \
+    ../../../src/wlac/xdr_rpc/clnt_tcp.c                       \
+    ../../../src/wlac/xdr_rpc/clnt_udp.c                       \
+    ../../../src/wlac/xdr_rpc/get_myaddr.c                     \
+    ../../../src/wlac/xdr_rpc/getrpcport.c                     \
+    ../../../src/wlac/xdr_rpc/pm_getmaps.c                     \
+    ../../../src/wlac/xdr_rpc/pm_getport.c                     \
+    ../../../src/wlac/xdr_rpc/pmap_clnt.c                      \
+    ../../../src/wlac/xdr_rpc/pmap_prot.c                      \
+    ../../../src/wlac/xdr_rpc/pmap_prot2.c                     \
+    ../../../src/wlac/xdr_rpc/rpc_cmsg1.c                      \
+    ../../../src/wlac/xdr_rpc/rpc_common.c                     \
+    ../../../src/wlac/xdr_rpc/rpc_dtable.c                     \
+    ../../../src/wlac/xdr_rpc/rpc_prot.c                       \
+    ../../../src/wlac/xdr_rpc/svc.c                            \
+    ../../../src/wlac/xdr_rpc/svc_auth.c                       \
+    ../../../src/wlac/xdr_rpc/svc_authux.c                     \
+    ../../../src/wlac/xdr_rpc/svc_raw.c                        \
+    ../../../src/wlac/xdr_rpc/svc_run.c                        \
+    ../../../src/wlac/xdr_rpc/svc_simple.c                     \
+    ../../../src/wlac/xdr_rpc/svc_tcp.c                        \
+    ../../../src/wlac/xdr_rpc/svc_udp.c                        \
+    ../../../src/wlac/xdr_rpc/xdr.c                            \
+    ../../../src/wlac/xdr_rpc/xdr_array.c                      \
+    ../../../src/wlac/xdr_rpc/xdr_float.c                      \
+    ../../../src/wlac/xdr_rpc/xdr_mem.c                        \
+    ../../../src/wlac/xdr_rpc/xdr_rec.c                        \
+    ../../../src/wlac/xdr_rpc/xdr_ref.c                        \
+    ../../../src/wlac/xdr_rpc/xdr_stdio.c

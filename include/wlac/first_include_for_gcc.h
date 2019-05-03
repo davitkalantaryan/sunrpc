@@ -3,8 +3,39 @@
 #ifndef  FIRST_INCLUDE_FOR_GCC
 #define  FIRST_INCLUDE_FOR_GCC
 
+#include <strings.h>
+
 #define REGISTER
 #define bool_t  int
+#define IMPORT_FROM_LIB_API
+#define __THROW
+
+#ifndef bcopy
+#define bcopy(_src,_dest,_size) memcpy((_dest),(_src),(_size))
+#endif
+
+#ifndef bcmp
+#define bcmp(_s1,_s2,_n)    memcmp((_s1),(_s2),(_n))
+#endif
+
+#if !defined(caddr_t) && !defined(caddr_t_defined)
+#define caddr_t_defined
+typedef char* caddr_t;
+#endif
+
+#ifndef _
+#define _(_str) _str
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int ffs2(int a_arg);
+
+#ifdef __cplusplus
+}
+#endif
 
 #if 0
 
