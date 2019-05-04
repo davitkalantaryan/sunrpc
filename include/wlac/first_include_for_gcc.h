@@ -5,7 +5,9 @@
 
 #include <strings.h>
 
+#ifndef REGISTER
 #define REGISTER
+#endif
 #define bool_t  int
 #define IMPORT_FROM_LIB_API
 #define __THROW
@@ -35,6 +37,22 @@ int ffs2(int a_arg);
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifndef __u_char_defined
+//typedef uint8_t __u_char;
+//typedef uint16_t __u_short;
+//typedef uint32_t __u_int;
+//typedef unsigned long __u_long;
+typedef int64_t quad_t;
+typedef int64_t u_quad_t;
+//typedef int __fsid_t;
+#define __u_char_defined
+#endif
+#ifndef __daddr_t_defined
+//typedef long __daddr_t;
+//typedef long __caddr_t ;
+#define __daddr_t_defined
 #endif
 
 #if 0

@@ -103,9 +103,9 @@ typedef struct AUTH_struct{
 	struct auth_ops {
 		void(*ah_nextverf)(struct AUTH_struct*);
 		int(*ah_marshal)(struct AUTH_struct*, XDR*);	/* nextverf & serialize */
-		int(*ah_validate)(register struct AUTH_struct*, struct opaque_auth*);	/* validate verifier */
-		int(*ah_refresh)(register struct AUTH_struct *);	/* refresh credentials */
-		void(*ah_destroy)(register struct AUTH_struct*);	/* destroy this structure */
+                int(*ah_validate)(REGISTER struct AUTH_struct*, struct opaque_auth*);	/* validate verifier */
+                int(*ah_refresh)(REGISTER struct AUTH_struct *);	/* refresh credentials */
+                void(*ah_destroy)(REGISTER struct AUTH_struct*);	/* destroy this structure */
 	} *ah_ops;
 	caddr_t ah_private;
 } AUTH;
@@ -183,7 +183,7 @@ LINKAGE_HDR AUTH *authdes_create(void);
 LINKAGE_HDR bool_t xdr_opaque_auth(XDR * , struct opaque_auth *) __THROW;
 AUTH *authunix_create_default(void);
 LINKAGE_HDR AUTH *authnone_create(void) __THROW;
-AUTH * authunix_create(char* machname, uid_t uid, gid_t gid, register int len, gid_t * aup_gids);
+AUTH * authunix_create(char* machname, uid_t uid, gid_t gid, REGISTER int len, gid_t * aup_gids);
 
 __END_DECLS
 

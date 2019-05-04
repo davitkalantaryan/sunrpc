@@ -192,6 +192,25 @@ xdr_long(xdrs, lp)
 	return (FALSE);
 }
 
+LINKAGE_SRC
+bool_t
+xdr_longlong_t(xdrs, lp)
+    register XDR *xdrs;
+    long *lp;
+{
+
+    if (xdrs->x_op == XDR_ENCODE)
+        return (XDR_PUTLONG(xdrs, lp));
+
+    if (xdrs->x_op == XDR_DECODE)
+        return (XDR_GETLONG(xdrs, lp));
+
+    if (xdrs->x_op == XDR_FREE)
+        return (TRUE);
+
+    return (FALSE);
+}
+
 /*
  * XDR unsigned long integers
  * same as xdr_long - open coded to save a proc call!

@@ -114,7 +114,7 @@ typedef struct XDRstruct{
 		u_int(*x_getpostn)(struct XDRstruct *);/* returns bytes off from beginning */
 		bool_t(*x_setpostn)(struct XDRstruct *, u_int);/* lets you reposition the stream */
 		long *	(*x_inline)(struct XDRstruct *, u_int);	/* buf quick ptr to buffered data */
-		void(*x_destroy)(register struct XDRstruct *);	/* free privates of this xdr_stream */
+                void(*x_destroy)(REGISTER struct XDRstruct *);	/* free privates of this xdr_stream */
 	} *x_ops;
 	caddr_t 	x_public;	/* users' data */
 	caddr_t		x_private;	/* pointer to private data */
@@ -243,8 +243,10 @@ struct xdr_discrim {
  * These are the "generic" xdr routines.
  */
 
-#define	xdr_longlong_t	xdr_long
+//#define	xdr_longlong_t	xdr_long
+#define	xdr_u_longlong_t	xdr_u_long
 
+LINKAGE_HDR bool_t      xdr_longlong_t(REGISTER XDR *xdrs, long *lp);
 LINKAGE_HDR bool_t	xdr_void();
 LINKAGE_HDR bool_t	xdr_int __P((XDR *__xdrs, int *__ip));
 LINKAGE_HDR bool_t	xdr_u_int __P((XDR *__xdrs, u_int *__up));
