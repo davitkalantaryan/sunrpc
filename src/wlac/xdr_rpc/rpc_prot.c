@@ -104,6 +104,8 @@ xdr_accepted_reply(xdrs, ar)
 		if (! xdr_u_long(xdrs, &(ar->ar_vers.low)))
 			return (FALSE);
 		return (xdr_u_long(xdrs, &(ar->ar_vers.high)));
+    default:
+        break;
 	}
 	return (TRUE);  /* TRUE => open ended set of problems */
 }
@@ -268,11 +270,12 @@ _seterr_reply(msg, error)
 	case MSG_DENIED:
 		rejected(msg->rjcted_rply.rj_stat, error);
 		break;
-
+#if 0
 	default:
 		error->re_status = RPC_FAILED;
 		error->re_lb.s1 = (long)(msg->rm_reply.rp_stat);
 		break;
+#endif
 	}
 	switch (error->re_status) {
 
@@ -289,5 +292,9 @@ _seterr_reply(msg, error)
 		error->re_vers.low = msg->acpted_rply.ar_vers.low;
 		error->re_vers.high = msg->acpted_rply.ar_vers.high;
 		break;
+    default:
+        error->re_status = RPC_FAILED;
+        error->re_lb.s1 = (long)(msg->rm_reply.rp_stat);
+        break;
 	}
 }

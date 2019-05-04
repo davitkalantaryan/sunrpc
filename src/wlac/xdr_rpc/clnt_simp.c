@@ -57,7 +57,7 @@ static struct callrpc_private {
 } *callrpc_private;
 
 LINKAGE_SRC
-callrpc(host, prognum, versnum, procnum, inproc, in, outproc, out)
+int callrpc(host, prognum, versnum, procnum, inproc, in, outproc, out)
 	char *host;
 	xdrproc_t inproc, outproc;
 	char *in, *out;

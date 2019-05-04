@@ -55,6 +55,7 @@ static char sccsid[] = "@(#)get_myaddress.c 1.4 87/08/11 Copyr 1984 Sun Micro";
 /* Order of following two #includes reversed by roland@gnu */
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <unistd.h>
 
 /*
  * don't use gethostbyname, which would invoke yellow pages
