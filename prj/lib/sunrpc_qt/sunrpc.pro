@@ -48,6 +48,8 @@ HEADERS += \
     ../../../include/wlac/first_include_for_gcc.h
 
 
+android|win32 {
+
 # LIBS += -lMCclass
 SOURCES += \
     ../../../src/lib/additional_functions_for_library.c        \
@@ -86,3 +88,5 @@ SOURCES += \
     ../../../src/wlac/xdr_rpc/xdr_rec.c                        \
     ../../../src/wlac/xdr_rpc/xdr_ref.c                        \
     ../../../src/wlac/xdr_rpc/xdr_stdio.c
+
+}
